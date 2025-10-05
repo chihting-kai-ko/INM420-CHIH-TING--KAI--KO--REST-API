@@ -6,12 +6,13 @@ const locations = [ "Toronto", "New York", "Los Angeles", "Chicago", "Vancouver"
 
 const randomCity = locations[Math.floor(Math.random() * locations.length)];
 
+// FETCH WEATHER DATA FROM API
 fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${randomCity}&days=1`)
   .then (response => response.json())
   .then (data => {
+    // ADD SECTION TO THE BODY (HTML)
     weather.innerHTML = `
-        <h2>${data.location.name} , ${data.location.country}</h2>
-        
+        <h2>Weather in ${data.location.name} , ${data.location.country}</h2>
         <div class="select-box">
           <div class="empty">
             <input type="text" class="input" placeholder="Please select the location"></input>
@@ -26,24 +27,6 @@ fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${randomCity
             <li class="option">Havana</li>
           </ul>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <p id=localTime>Local Time : ${data.location.localtime}</p>
       <div class="currentWeather">
         <div class="info">
@@ -56,7 +39,30 @@ fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${randomCity
       </div>
         
     `;
+
+
+    // DROPDOWN MENU FUNCTIONALITY
+    const input = weather.querySelector(".input");
+    const optionsContainer = weather.querySelector(".options-container");
+
+    input.onfocus =() => {
+      optionsContainer.classList.toggle("active");
+    };
+
+    input.onblur =() => {
+      optionsContainer.classList.toggle("active");
+    };
+
+    // SHOW THE CITY IS SELECTED
+    const option = weather.querySelectorAll(".option");
+    option.forEach((item) => (item.onclick = () => {
+      input.placeholder =item.innerText;
+      document.querySelector("h2").innerHTML =item.innerHTML
+    }));
   })
+
   .catch (error => console.log("Error!" + error));
 
   document.body.appendChild(weather);
+
+

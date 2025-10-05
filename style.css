@@ -68,8 +68,8 @@ h2 {
 
     transition: all 0.3s ease;
     overflow: hidden;
-    /* opacity: 0;
-    max-height: 0; */
+    opacity: 0;
+    max-height: 0;
 }
 
 
@@ -80,6 +80,9 @@ h2 {
     overflow-y: scroll;
     padding: 0;
 }
+
+
+
 
 .options-container::-webkit-scrollbar {
     width: 6px;
